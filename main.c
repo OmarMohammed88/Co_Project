@@ -28,12 +28,6 @@ int main()
         int queueNumber, opCode, data, newData;
         //scanning the qnumber and the opcode
         scanf("%d %d", &queueNumber, &opCode);
-        //if the op is delete no need to scan data otherwise scan it
-        if(opCode != 2)
-        {
-            scanf(" %d", &data);
-        }
-        //input validation
         if (queueNumber < 1 || queueNumber > 5)
         {
             puts("wrong input");
@@ -45,32 +39,34 @@ int main()
             puts("wrong input");
             return 0;
         }
-        else
+        //if the op is delete no need to scan data otherwise scan it
+        if(opCode != 2)
         {
-            //checking what the op code is to perform the operation
-            switch(opCode)
-            {
-            //case 1 is for insertion
-            case 1:
-                insert(queueNumber, data);
-                break;
-            //case 2 is for deletion
-            case 2:
-                deeleetee(queueNumber);
-                break;
-            //case 3 is for searching
-            case 3:
-                printf("%d\n", search(queueNumber, data));
-                break;
-            //case 4 is for updating
-            case 4:
-                //is case of update the data scanned at the beginning of the execution will be considered the data we want it to be replaced
-                printf("enter new data you wish to insert\n");
-                //the new data we want it to replace the old data is scanned here
-                scanf("%d", &newData);
-                update(queueNumber, data, newData);
-                break;
-            }
+            scanf(" %d", &data);
+        }
+        //checking what the op code is to perform the operation
+        switch(opCode)
+        {
+        //case 1 is for insertion
+        case 1:
+            insert(queueNumber, data);
+            break;
+        //case 2 is for deletion
+        case 2:
+            deeleetee(queueNumber);
+            break;
+        //case 3 is for searching
+        case 3:
+            printf("%d\n", search(queueNumber, data));
+            break;
+        //case 4 is for updating
+        case 4:
+            //is case of update the data scanned at the beginning of the execution will be considered the data we want it to be replaced
+            printf("enter new data you wish to insert\n");
+            //the new data we want it to replace the old data is scanned here
+            scanf("%d", &newData);
+            update(queueNumber, data, newData);
+            break;
         }
     }
     return 0;
@@ -160,36 +156,40 @@ void deeleetee(int queueNumber)
         break;
         //the same is applied to the rest of the cases
     case 2:
-        if(front2 == rear2)
+        if(size2 == 0)
             {
                 printf("Queue empty\n");
                 return;
             }
         front2 = (front2 + 1) % MAX;
+        size2--;
         break;
     case 3:
-        if(front3 == rear3)
+        if(size3 == 0)
             {
                 printf("Queue empty\n");
                 return;
             }
         front3 = (front3 + 1) % MAX;
+        size3--;
         break;
     case 4:
-        if(front4 == rear4)
+        if(size4 == 0)
             {
                 printf("Queue empty\n");
                 return;
             }
         front4 = (front4 + 1) % MAX;
+        size4--;
         break;
     case 5:
-        if(front5 == rear5)
+        if(size5 == 0)
             {
                 printf("Queue empty\n");
                 return;
             }
         front5 = (front5 + 1) % MAX;
+        size5--;
         break;
     //if none of the cases above were true
     default:
@@ -220,40 +220,44 @@ int search(int queueNumber, int data)
         return -1;
         //the same applies for the rest cases
     case 2:
-        for(i = front2; i != rear2; ++i)
+        for(i=front2, siz=0; siz<size2; siz++)
+        {
+			if(queue2[i] == data)
             {
-                if(queue2[i] == data)
-                    return i;
-                if(i == (MAX - 1))
-                    i = 0;
+                return i;
             }
+			i=(i+1)%MAX;
+		}
         return -1;
     case 3:
-        for(i = front3; i != rear3; ++i)
+        for(i=front3, siz=0; siz<size3; siz++)
+        {
+			if(queue3[i] == data)
             {
-                if(queue3[i] == data)
-                    return i;
-                if(i == (MAX - 1))
-                    i = 0;
+                return i;
             }
+			i=(i+1)%MAX;
+		}
         return -1;
     case 4:
-        for(i = front4; i != rear4; ++i)
+        for(i=front4, siz=0; siz<size4; siz++)
+        {
+			if(queue4[i] == data)
             {
-                if(queue1[i] == data)
-                    return i;
-                if(i == (MAX - 1))
-                    i = 0;
+                return i;
             }
+			i=(i+1)%MAX;
+		}
         return -1;
     case 5:
-        for(i = front5; i != rear5; ++i)
+        for(i=front5, siz=0; siz<size5; siz++)
+        {
+			if(queue5[i] == data)
             {
-                if(queue1[i] == data)
-                    return i;
-                if(i == (MAX - 1))
-                    i = 0;
+                return i;
             }
+			i=(i+1)%MAX;
+		}
         return -1;
     default:
         //if none of the cases above applies
